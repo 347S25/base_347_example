@@ -5,6 +5,55 @@ cookie cutter for 347
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
+
+## Prereqs
+
+## Getting Started
+1. Make sure you have an environment variable called `DJANGO_READ_DOT_ENV_FILE` set to `True` (Search up how to set an environment variable on your OS).
+1. create a `.env` file in the root of the project (sibling to this file) and add the following:
+    ```env
+    DJANGO_SUPERUSER_USERNAME="me"
+    DJANGO_SUPERUSER_PASSWORD="me"
+    DJANGO_SUPERUSER_EMAIL="me@me.me"
+    DATABASE_URL="sqlite:///local.sqlite3"
+    ```
+1. create a `venv` for this project.
+    1. This project's `.gitignore` is set up to ignore the `venv/` folder, so you could put it there as follows, but...
+        ```bash
+        python -m venv venv
+        ```
+    2. Dr. Stewart doesn't like `venv`s living in the repos, so his are all elsewhere (e.g. `~/dev/venv-all`)
+        ```bash
+        python -m venv ~/dev/venv-all/base_347_example
+        ```
+2. activate your `venv` (don't forget, this varies depending on your OS and shell)
+3. if you are running the cookiecutter generator yourself, you may want to do the following (_both of which are already done in the current repo_):
+    1. [edit the migration to work with sqlite](https://blog.tafkas.net/2024/04/17/using-cookiecutter-django-with-sqlite/)
+    2. add this little cheat where you make a `requirements.txt` in the project root with the following so that the sort of conventional python way of doing requirements (having a requirements.txt file) applies to this project, despite it also following the cookiecutter-django way of doing things where you break the requirements up into different files depending on the environment.
+        ```txt
+        -r requirements/local.txt
+
+        ```
+4. install the requirements for this repo
+    ```bash
+    pip install -r requirements.txt
+    ```
+5. run the migrations (because the cookiecutter generator that I ran to help create this repo [or that you ran on your own] already created them)
+    ```bash
+    python manage.py migrate
+    ```
+6. create a superuser using the boring values in the `.env` file (we won't use these in "prod")
+    ```bash
+    python manage.py createsuperuser --no-input
+    ```
+7. run the server
+    ```bash
+    python manage.py runserver
+    ```
+8. go to the admin page and log in with the superuser credentials you just created
+    1. http://localhost:8000/admin
+
+
 License: MIT
 
 ## Settings

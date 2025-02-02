@@ -272,3 +272,6 @@ mailpit
 base_347_example/media/
 
 .pytest_cache/
+
+# local .env file
+.env
