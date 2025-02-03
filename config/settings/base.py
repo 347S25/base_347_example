@@ -85,6 +85,7 @@ THIRD_PARTY_APPS = [
     "allauth.mfa",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.canvas",
+    "allauth.socialaccount.providers.google",
 ]
 
 LOCAL_APPS = [
@@ -289,6 +290,9 @@ SOCIALACCOUNT_ADAPTER = "base_347_example.users.adapters.SocialAccountAdapter"
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
 SOCIALACCOUNT_FORMS = {"signup": "base_347_example.users.forms.UserSocialSignupForm"}
 
+# https://docs.allauth.org/en/dev/socialaccount/configuration.html store the tokens so we can refresh if we need to
+SOCIALACCOUNT_STORE_TOKENS = True
+
 
 # Your stuff...
 # ------------------------------------------------------------------------------
@@ -303,5 +307,16 @@ SOCIALACCOUNT_PROVIDERS = {
             "url:GET|/api/v1/courses/:course_id/sections",
             "url:GET|/api/v1/users/:user_id/profile"
             ]
+    },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'offline',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+        'FETCH_USERINFO' : True,
     }
 }
