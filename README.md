@@ -52,6 +52,18 @@ cookie cutter for 347
     ```
 8. go to the admin page and log in with the superuser credentials you just created
     1. http://localhost:8000/admin
+9. add a new Social application in the admin interface
+    1. for Canvas:
+        1. Provider: `Canvas`
+        2. Name: `Canvas` (or whatever you want)
+        3. Client id: `whatever value you have been told is your canvas "key id"`
+        4. Secret key: `whatever value you have been told is your canvas "key"`
+        5. Key: `your canvas instance's base URL, e.g. https://canvas.jmu.edu`
+        6. Sites: `localhost`
+            * note: you will have had to tell your Canvas administrators your site's URL so that they can associate it with your key and secret. consider telling them both of the following for testing:
+                1. `http://localhost:8000/accounts/canvas/login/callback/`
+                1. `http://127.0.0.1:8000/accounts/canvas/login/callback/`
+
 
 
 License: MIT

@@ -84,6 +84,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.mfa",
     "allauth.socialaccount",
+    "allauth.socialaccount.providers.canvas",
 ]
 
 LOCAL_APPS = [
@@ -108,7 +109,8 @@ AUTHENTICATION_BACKENDS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "users:redirect"
+# LOGIN_REDIRECT_URL = "users:redirect"
+LOGIN_REDIRECT_URL = "/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = "account_login"
 
@@ -271,11 +273,13 @@ REDIS_SSL = REDIS_URL.startswith("rediss://")
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 # https://docs.allauth.org/en/latest/account/configuration.html
-ACCOUNT_AUTHENTICATION_METHOD = "username"
+# ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_LOGIN_METHODS = {"username"}
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True
 # https://docs.allauth.org/en/latest/account/configuration.html
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "none"  # bc allauth?
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_ADAPTER = "base_347_example.users.adapters.AccountAdapter"
 # https://docs.allauth.org/en/latest/account/forms.html
@@ -288,3 +292,16 @@ SOCIALACCOUNT_FORMS = {"signup": "base_347_example.users.forms.UserSocialSignupF
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+SOCIALACCOUNT_PROVIDERS = {
+    'canvas': {
+        'SCOPE': [
+            "url:GET|/api/v1/accounts/:account_id/terms",
+            "url:GET|/api/v1/courses/:course_id/enrollments",
+            "url:GET|/api/v1/sections/:section_id/enrollments",
+            "url:GET|/api/v1/users/:user_id/enrollments",
+            "url:GET|/api/v1/courses/:course_id/sections",
+            "url:GET|/api/v1/users/:user_id/profile"
+            ]
+    }
+}
