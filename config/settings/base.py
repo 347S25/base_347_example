@@ -93,6 +93,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "base_347_example.users",
     # Your stuff: custom apps go here
+    "base_347_example.chat",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -268,7 +269,7 @@ LOGGING = {
     "root": {"level": "INFO", "handlers": ["console"]},
 }
 
-REDIS_URL = env("REDIS_URL", default="redis://localhost:6379/0")
+REDIS_URL = env("REDIS_URL", default="redis://default:vj237hJBCLvhNTsZrVKoqT7mPjL@127.0.0.1:6379/0")
 REDIS_SSL = REDIS_URL.startswith("rediss://")
 
 
@@ -300,10 +301,11 @@ SOCIALACCOUNT_STORE_TOKENS = True
 # ------------------------------------------------------------------------------
 CHANNEL_LAYERS = {
     "default": {
+        # "BACKEND": "channels.layers.InMemoryChannelLayer",
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
             "hosts": [REDIS_URL],
-            "ssl_cert_reqs": None if REDIS_SSL else None,
+            # "ssl_cert_reqs": None if REDIS_SSL else None,
         },
     },
 }
