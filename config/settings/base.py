@@ -67,6 +67,8 @@ WSGI_APPLICATION = "config.wsgi.application"
 # APPS
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
+    "daphne",
+    "channels",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
