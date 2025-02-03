@@ -61,8 +61,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
 ROOT_URLCONF = "config.urls"
-# https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
-WSGI_APPLICATION = "config.wsgi.application"
+# https://docs.djangoproject.com/en/dev/ref/settings/#asgi-application
+ASGI_APPLICATION = "config.asgi.application"
 
 # APPS
 # ------------------------------------------------------------------------------
@@ -295,6 +295,18 @@ SOCIALACCOUNT_FORMS = {"signup": "base_347_example.users.forms.UserSocialSignupF
 # https://docs.allauth.org/en/dev/socialaccount/configuration.html store the tokens so we can refresh if we need to
 SOCIALACCOUNT_STORE_TOKENS = True
 
+
+# Channels
+# ------------------------------------------------------------------------------
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [REDIS_URL],
+            "ssl_cert_reqs": None if REDIS_SSL else None,
+        },
+    },
+}
 
 # Your stuff...
 # ------------------------------------------------------------------------------
