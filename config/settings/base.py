@@ -54,6 +54,8 @@ DATABASES = {
     ),
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# for testing channels as in the end of the tutorial https://channels.readthedocs.io/en/latest/tutorial/part_4.html
+DATABASES["default"]["TEST"] = {"NAME": BASE_DIR / "db.sqlite3"}
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
