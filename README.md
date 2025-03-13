@@ -9,6 +9,7 @@ cookie cutter for 347
 ## Prereqs
 
 ## Getting Started
+1. If you don't have it already because of another class or project, install [postgres](https://www.postgresql.org/) (it's a database server).  
 1. Make sure you have an environment variable called `DJANGO_READ_DOT_ENV_FILE` set to `True` (Search up how to set an environment variable on your OS).
 1. create a `.env` file in the root of the project (sibling to this file) and add the following:
     ```env
