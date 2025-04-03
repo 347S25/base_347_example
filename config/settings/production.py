@@ -12,6 +12,9 @@ from .base import INSTALLED_APPS
 from .base import REDIS_URL
 from .base import env
 
+
+import sys
+import dj_database_url
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
@@ -183,3 +186,12 @@ sentry_sdk.init(
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+DEBUG = False
+
+
+if sys.argv[1] != 'collectstatic':
+    if env("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
+    DATABASES = {
+        "default": dj_database_url.parse(env("DATABASE_URL")),
+    }
