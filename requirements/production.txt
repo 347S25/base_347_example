@@ -14,3 +14,4 @@ django-anymail[mailgun]==12.0  # https://github.com/anymail/django-anymail
 # DigitalOcean
 dj-database-url==2.3.0
 django-debug-toolbar==5.0.1  # https://github.com/jazzband/django-debug-toolbar
+django-extensions==3.2.3  # https://github.com/django-extensions/django-extensions
