@@ -5,6 +5,7 @@
 from pathlib import Path
 
 import environ
+import sys
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # base_347_example/
@@ -274,8 +275,11 @@ LOGGING = {
             "formatter": "verbose",
         }
     },
-    "root": {"level": "INFO", "handlers": ["console", "file"]},
+    "root": {"level": "INFO", "handlers": ["console"]},
 }
+
+if sys.argv[1] != 'collectstatic':
+    LOGGING["root"]["handlers"].append("file")
 
 REDIS_URL = env("REDIS_URL", default="redis://default:vj237hJBCLvhNTsZrVKoqT7mPjL@127.0.0.1:6379/0")
 REDIS_SSL = REDIS_URL.startswith("rediss://")
