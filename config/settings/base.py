@@ -267,8 +267,14 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": str(APPS_DIR / "logs" / "django.log"),
+            "formatter": "verbose",
+        }
     },
-    "root": {"level": "INFO", "handlers": ["console"]},
+    "root": {"level": "INFO", "handlers": ["console", "file"]},
 }
 
 REDIS_URL = env("REDIS_URL", default="redis://default:vj237hJBCLvhNTsZrVKoqT7mPjL@127.0.0.1:6379/0")
