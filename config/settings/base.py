@@ -5,6 +5,7 @@
 from pathlib import Path
 
 import environ
+import sys
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # base_347_example/
@@ -271,7 +272,20 @@ LOGGING = {
     "root": {"level": "INFO", "handlers": ["console"]},
 }
 
-REDIS_URL = env("REDIS_URL", default="redis://default:vj237hJBCLvhNTsZrVKoqT7mPjL@127.0.0.1:6379/0")
+print("sys.argv[1]", sys.argv[1])
+if sys.argv[1] != "collectstatic":
+    LOGGING["handlers"]["file"] = {
+        "level": "DEBUG",
+        "class": "logging.FileHandler",
+        "filename": str(APPS_DIR / "logs" / "django.log"),
+        "formatter": "verbose",
+    }
+    LOGGING["root"]["handlers"].append("file")
+    print("Logging to file")
+
+REDIS_URL = env(
+    "REDIS_URL", default="redis://default:vj237hJBCLvhNTsZrVKoqT7mPjL@127.0.0.1:6379/0"
+)
 REDIS_SSL = REDIS_URL.startswith("rediss://")
 
 
@@ -316,25 +330,25 @@ CHANNEL_LAYERS = {
 # ------------------------------------------------------------------------------
 
 SOCIALACCOUNT_PROVIDERS = {
-    'canvas': {
-        'SCOPE': [
+    "canvas": {
+        "SCOPE": [
             "url:GET|/api/v1/accounts/:account_id/terms",
             "url:GET|/api/v1/courses/:course_id/enrollments",
             "url:GET|/api/v1/sections/:section_id/enrollments",
             "url:GET|/api/v1/users/:user_id/enrollments",
             "url:GET|/api/v1/courses/:course_id/sections",
-            "url:GET|/api/v1/users/:user_id/profile"
-            ]
+            "url:GET|/api/v1/users/:user_id/profile",
+        ]
     },
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
+    "google": {
+        "SCOPE": [
+            "profile",
+            "email",
         ],
-        'AUTH_PARAMS': {
-            'access_type': 'offline',
+        "AUTH_PARAMS": {
+            "access_type": "offline",
         },
-        'OAUTH_PKCE_ENABLED': True,
-        'FETCH_USERINFO' : True,
-    }
+        "OAUTH_PKCE_ENABLED": True,
+        "FETCH_USERINFO": True,
+    },
 }
